@@ -1,46 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Button from '@material-ui/core/Button';
-import {connect} from 'react-redux';
-import {FilmsCall} from '../action';
 
+import { moviesActions } from '../store/Movies/reducer'
 
-class Search extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            searchText: '',
-        }
-    }
-   
+const Search = ({ onSubmit }) => {
 
-    Onfill = (e) => {
+    const [searchText, setSearchText] = useState('')
+
+    const Onfill = (e) => {
         e.preventDefault();
-        this.props.FilmsCall(this.state.searchText)
-       
+        onSubmit(searchText)
     }
-   
-    render() {
-        return (
-            <form onSubmit={this.Onfill}>
-                <TextField
-                    autoComplete='off'
-                    name='searchText'
-                    value={this.state.searchText}
-                    onChange={e => this.setState({ searchText: e.target.value })}
-                    floatingLabelText='Search for Films'
-                    fullWidth={true}
-                />
 
-                <Button type="submit" style={{margin:"20px 600px "}} variant="contained" color="primary"> Search </Button>
+    return (
+        <form onSubmit={Onfill} style={{ marginTop: '10px' }}>
+            <TextField
+                autoComplete='off'
+                name='searchText'
+                value={searchText}
+                onChange={e => setSearchText(e.target.value)}
+                floatingLabelText='Search for Films'
+                fullWidth={true}
+            />
+            <Button type="submit" style={{ margin: "20px 600px " }} variant="contained" color="primary"> Search </Button>
+        </form>
+    )
 
-
-            </form>
-        )
-    }
 }
-export default connect(
-    null,
-    {FilmsCall}
-    ) (Search); 
+
+
+export function mapDispatchToProps(dispatch) {
+    return {
+        onSubmit: (term) => dispatch(moviesActions.getMovies(term)),
+    };
+}
+
+const withConnect = connect(null, mapDispatchToProps);
+
+export default compose(withConnect)(Search);

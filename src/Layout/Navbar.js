@@ -6,13 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
+
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -22,12 +20,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function HomeIcon(props: SvgIconProps) {
-    return (
-      <SvgIcon {...props}>
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-      </SvgIcon>
-    );
-  }
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 
 
@@ -38,16 +36,16 @@ export default function ButtonAppBar() {
   const classes = useStyles();
 
   return (
-    <div style={{marginBottom:"20px"}} className={classes.root}>
+    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                Nobo Life
+            <Link style={{ color: "black", fontSize: "30px", fontFamily: "italic" }} to={`/`}>   <HomeIcon color="secondary" /></Link>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-          
+
           </Typography>
-          <Link style={{color:"black",fontSize:"30px",fontFamily:"italic"}} to ={`/`}>   <HomeIcon color="secondary"/ ></Link>
+          <Link style={{ color: "#fff", fontSize: "25px", textDecoration: "none", marginRight: "10px" }} to={`/favorite`}>My favorite</Link>
         </Toolbar>
       </AppBar>
     </div>

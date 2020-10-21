@@ -14,12 +14,12 @@ export default class Footer extends Component {
             <footer style={{ backgroundColor: "#0086b4", flexShrink: "none" }} >
                 <Container maxWidth="lg">
                     <Typography variant="h6" align="center" gutterBottom>
-                       Nobo-Life
+                        Imdb Movies
                 </Typography>
                     <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
                         Movies Footer!
                 </Typography>
-               
+
                 </Container>
             </footer>
         )

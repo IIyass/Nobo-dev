@@ -2,26 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './Component/App';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import "regenerator-runtime/runtime";
+import { all } from 'redux-saga/effects';
+import storeSagas from './store/saga'
+import reducer from './reducers'
 
-import {Provider} from 'react-redux';
-import {createStore,applyMiddleware, compose} from 'redux';
-import Reducers from './Reducers';
-import reduxthunk from 'redux-thunk';
+function* rootSaga() {
+    yield all(storeSagas);
+}
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(Reducers,composeEnhancers(applyMiddleware(reduxthunk)));
+export const store = createStore(reducer(), applyMiddleware(sagaMiddleware));
 
+sagaMiddleware.run(rootSaga);
 
-
-
-
-
-
-
-ReactDOM.render(<Provider  store={store}>
-    <App/>
-    </Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}>
+    <App />
+</Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
